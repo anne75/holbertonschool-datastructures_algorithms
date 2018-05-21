@@ -86,9 +86,9 @@ rb_tree_t *delete_min(rb_tree_t *tree)
 
 /**
  * right_sibling - the node to remove is the left child.
- * parent - parent of the nodes
- * root - root of tree
- * return: node on which to loop (or not)
+ * @parent: parent of the nodes
+ * @root: root of tree
+ * Return: node on which to loop (or not)
  */
 rb_tree_t *right_sibling(rb_tree_t *parent, rb_tree_t **root)
 {
@@ -106,7 +106,7 @@ rb_tree_t *right_sibling(rb_tree_t *parent, rb_tree_t **root)
 		{
 			parent->right = rb_rotate_right(sibling);
 			sibling = parent->right;
-			sibling->color = BLACK; sibling->right->color = RED;
+			sibling->color = BLACK, sibling->right->color = RED;
 		}
 		if (sibling->right && sibling->right->color == RED)
 			/*sibling has right red child*/
@@ -150,9 +150,9 @@ rb_tree_t *right_sibling(rb_tree_t *parent, rb_tree_t **root)
 
 /**
  * left_sibling - the node to remove is the right child.
- * parent - parent of the nodes
- * root - root of tree
- * return: node on which to loop (or not)
+ * @parent: parent of the nodes
+ * @root: root of tree
+ * Return: node on which to loop (or not)
  */
 rb_tree_t *left_sibling(rb_tree_t *parent, rb_tree_t **root)
 {
@@ -170,7 +170,7 @@ rb_tree_t *left_sibling(rb_tree_t *parent, rb_tree_t **root)
 		{
 			parent->left = rb_rotate_left(sibling);
 			sibling = parent->left;
-			sibling->color = BLACK; sibling->left->color = RED;
+			sibling->color = BLACK, sibling->left->color = RED;
 		}
 		if (sibling->left && sibling->left->color == RED)
 			/*sibling has left red child*/
