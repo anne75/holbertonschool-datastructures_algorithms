@@ -267,7 +267,7 @@ rb_tree_t *re_bst(rb_tree_t *root, rb_tree_t *removed)
 			to_free->parent->right = NULL;
 	}
 	free(to_free);
-	return (root);
+	return ((to_free == root) ? NULL : root);
 }
 
 /**
@@ -293,7 +293,7 @@ rb_tree_t *rb_tree_remove(rb_tree_t *root, int value)
 			break;
 	}
 	if (!tmp)
-		return (NULL);
+		return (root);
 	if ((tmp->right) && (tmp->left))
 	{
 		removed = delete_min(tmp->right);
@@ -304,6 +304,7 @@ rb_tree_t *rb_tree_remove(rb_tree_t *root, int value)
 	{
 		root = re_bst(root, tmp);
 	}
-	root->color = BLACK;
+	if (root)
+		root->color = BLACK;
 	return (root);
 }

@@ -15,6 +15,7 @@ int main(void)
 		79, 47, 68, 87, 84, 91, 21, 32, 34, 2,
 		20, 22
 	};
+	/* int array[] = {1} */
 	size_t n = sizeof(array) / sizeof(array[0]);
 
 	tree = array_to_rb_tree(array, n);
