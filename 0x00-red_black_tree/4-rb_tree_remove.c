@@ -69,17 +69,17 @@ rb_tree_t *rb_rotate_right(rb_tree_t *node)
 
 
 /**
- * delete_min - delete the minimum node in a rb search tree
+ * find_max - finds the maximum in a binary search tree
  * @tree: pointer to root
- * Return: the minimum node
+ * Return: the maximum node
  */
-rb_tree_t *delete_min(rb_tree_t *tree)
+rb_tree_t *find_max(rb_tree_t *tree)
 {
 
 	if (!tree)
 		return (NULL);
-	while (tree->left)
-		tree = tree->left;
+	while (tree->right)
+		tree = tree->right;
 	return (tree);
 }
 
@@ -296,7 +296,7 @@ rb_tree_t *rb_tree_remove(rb_tree_t *root, int value)
 		return (root);
 	if ((tmp->right) && (tmp->left))
 	{
-		removed = delete_min(tmp->right);
+		removed = find_max(tmp->left);
 		tmp->n = removed->n;
 		root = re_bst(root, removed);
 	}
