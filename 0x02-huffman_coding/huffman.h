@@ -23,11 +23,13 @@ typedef struct symbol_s
  *
  * @data: the character
  * @symbol: the associated symbol
+ * @next: next data in the linked list
  */
 typedef struct pair_s
 {
 	char data;
-	int symbol;
+	int code;
+	struct pair_s *next;
 } pair_t;
 
 
@@ -55,5 +57,13 @@ binary_tree_node_t *huffman_tree(char *data, size_t *freq, size_t size);
 
 /*question 9*/
 int huffman_codes(char *data, size_t *freq, size_t size);
+
+
+/*last question*/
+#define ASCII_LENGTH 128
+
+int compress_file(FILE *infile, const char *outfile);
+int decompress_file(FILE *infile, const char *outfile);
+void fill_weights(FILE *infile, size_t (*weights)[ASCII_LENGTH]);
 
 #endif
