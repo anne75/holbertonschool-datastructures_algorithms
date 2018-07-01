@@ -5,6 +5,7 @@
 #include "huffman.h"
 /* Original code from http://stackoverflow.com/a/13755911/5184480 */
 
+#define HYP_LENGTH 400 /*originally 255*/
 /**
  * print_t - Stores recursively each level in an array of strings
  *
@@ -19,7 +20,7 @@
 static int print_t(const binary_tree_node_t *tree, int offset, int depth,
 	char **s, int (*print_data)(char *, void *))
 {
-	char b[6];
+	char b[10]; /*originally 6*/
 	int width, left, right, is_left, i;
 
 	if (!tree)
@@ -82,7 +83,7 @@ void binary_tree_print(const binary_tree_node_t *root,
 		return;
 	for (i = 0; i < height + 1; i++)
 	{
-		s[i] = malloc(sizeof(**s) * 255);
+		s[i] = malloc(sizeof(**s) * HYP_LENGTH);
 		if (!s[i])
 			return;
 		memset(s[i], 32, 255);

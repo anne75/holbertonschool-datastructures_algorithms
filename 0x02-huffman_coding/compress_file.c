@@ -7,7 +7,7 @@ int compress_file(FILE *infile, const char *outfile)
 /*need one array of weights, an index doubles as ascii value*/
 	size_t weigths[ASCII_LENGTH] = {0};
 	char ascii[ASCII_LENGTH];
-	/*pair_t *pairs;*/
+	pair_t *pairs;
 	int i;
 	(void ) outfile;
 
@@ -19,11 +19,18 @@ int compress_file(FILE *infile, const char *outfile)
 
 	for (i = 0; i < ASCII_LENGTH; ++i)
 	{
-		printf("%c -> %lu\n", ascii[i], weigths[i]);
+		if (weigths[i])
+			printf("%c (%d)  -> %lu\n", ascii[i], ascii[i], weigths[i]);
 	}
-	return (1);
 /* call the huffman encoding */
-/*	pairs = get_codes(ascii, weights, 128);*/
+	pairs = get_codes(ascii, weigths, ASCII_LENGTH);
+	while (pairs)
+	{
+		print_binary(pairs->data, pairs->code);
+		pairs = pairs->next;
+	}
+
+	return (1);
 }
 
 

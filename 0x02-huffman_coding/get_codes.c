@@ -60,6 +60,7 @@ int add_match(char data, int code, pair_t **head)
 	if (!new)
 		return (0);
 
+	puts("create new match");
 	new->data = data;
 	new->code = code;
 	if (*head)
@@ -95,8 +96,11 @@ void free_pair(pair_t *head)
  */
 int make_codes(binary_tree_node_t *tree, int building_char, pair_t **head)
 {
-	int code;
+	int code, ret;
 	char data;
+
+	if (!(tree && head))
+	    return (0);
 
 	if (tree->left)
 	{
@@ -116,9 +120,11 @@ int make_codes(binary_tree_node_t *tree, int building_char, pair_t **head)
 		else
 			return (0);
 		print_binary(data, building_char);
-		return (add_match(data, building_char, head));
+		ret = add_match(data, building_char, head);
+		printf("return add_match: %d\n", ret);
+		return (ret);
 	}
-	return (0);
+	return (1);
 }
 
 
@@ -140,9 +146,11 @@ pair_t *get_codes(char *data, size_t *freq, size_t size)
 	tree = huffman_tree(data, freq, size);
 	if (!tree)
 		return (NULL);
+	puts("print get codes tree");
+	/*binary_tree_print(tree, symbol_print);*/
 	head = NULL;
 	ret = make_codes(tree, 1, &head);
-
+	printf("return make_codes: %d\n", ret);
 /*free binary tree*/
 	free_data(tree);
 	if (!ret)

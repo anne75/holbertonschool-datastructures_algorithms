@@ -65,5 +65,11 @@ int huffman_codes(char *data, size_t *freq, size_t size);
 int compress_file(FILE *infile, const char *outfile);
 int decompress_file(FILE *infile, const char *outfile);
 void fill_weights(FILE *infile, size_t (*weights)[ASCII_LENGTH]);
+pair_t *get_codes(char *data, size_t *freq, size_t size);
+
+void print_binary(char data, int c);
+int nested_print(char *buffer, void *data);
+int symbol_print(char *buffer, void *data);
+
 
 #endif

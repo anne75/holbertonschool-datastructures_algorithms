@@ -25,6 +25,7 @@ int main(int ac, char **av)
 	if (!infile)
 	{
 		printf("No such file: %s\n", av[2]);
+		exit(EXIT_FAILURE);
 	}
 	if (!strcmp(av[1],"c"))
 		ret_code = compress_file(infile, av[3]);
