@@ -63,9 +63,7 @@ vertex_t *delete(queue_t **queue, size_t *depth)
  * breadth_first_vertex - find largest depth starting at specific vertex.
  * @graph: pointer to graph.
  * @action: pointer to function about vertex.
- * @vertex: source vertex;
-
-
+ * @vertex: source vertex.
  * Return: maximal depth for that vertex in the graph.
  */
 size_t breadth_first_vertex(const graph_t *graph,
@@ -98,8 +96,6 @@ size_t breadth_first_vertex(const graph_t *graph,
 		tmp = delete(&queue, &depth);
 		action(tmp, depth);
 		edges = tmp->edges;
-		if (!edges)
-			continue;
 		while (edges)
 		{
 			if (!edges->dest)
