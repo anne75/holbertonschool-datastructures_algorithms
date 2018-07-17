@@ -16,13 +16,16 @@ vertex_t *graph_add_vertex(graph_t *graph, const char *str)
 		return (NULL);
 
 	tmp = graph->vertices;
-	/* loop to the last element in list */
+	/* loop to the last-1 element in list */
 	while (tmp && tmp->next)
 	{
 		if (!strcmp(tmp->content, str))
 			return (NULL);
 		tmp = tmp->next;
 	}
+	/* last element */
+	if (tmp && !strcmp(tmp->content, str))
+		return (NULL);
 	/* create a new vertex */
 	new = malloc(sizeof(*new));
 	if (!new)

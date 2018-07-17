@@ -79,7 +79,7 @@ size_t breadth_first_vertex(const graph_t *graph,
 	if (!(graph && action && vertex))
 		return (0);
 
-	in_queue = calloc(sizeof(graph->nb_vertices), 1);
+	in_queue = calloc(graph->nb_vertices, sizeof(size_t));
 	if (!in_queue)
 		return (0);
 	queue = NULL;
