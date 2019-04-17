@@ -118,11 +118,6 @@ int recursive_call(char **map, int rows, int cols, queue_t *already_seen,
 			queue_push_front(path, next);
 			break;
 		}
-		else
-		{
-			dequeue(already_seen);
-			free(next);
-		}
 	}
 	return (recursion_success);
 }
@@ -130,15 +125,32 @@ int recursive_call(char **map, int rows, int cols, queue_t *already_seen,
 /**
  * free_path - free all the elements in a queue and the queue itself.
  * @path: a queue.
+ * @filter: list of points we do not want to free in other queue
  */
-void free_path(queue_t *path)
+void free_path(queue_t *path, queue_t *filter)
 {
-	point_t *point;
+	point_t *point, *filtering_point;
+	queue_node_t *front_node;
+	int filter_out;
 
 	while (path->front)
 	{
 		point = (point_t *)dequeue(path);
-		free(point);
+		filter_out = 0;
+		front_node = (filter == NULL) ? NULL : filter->front;
+		while (front_node)
+		{
+			filtering_point = (point_t *)front_node->ptr;
+			if (point->x == filtering_point->x &&
+			    point->y == filtering_point->y)
+			{
+				filter_out = 1;
+				break;
+			}
+			front_node = front_node->next;
+		}
+		if (!filter_out)
+			free(point);
 	}
 	free(path);
 }
@@ -174,25 +186,25 @@ queue_t *backtracking_array(char **map, int rows, int cols,
 		queue_delete(path);
 		return (NULL);
 	}
-	node = queue_push_front(already_seen, (void *)start);
+	start_copy = malloc(sizeof(point_t));
+	if (!start_copy)
+	{
+		queue_delete(already_seen), queue_delete(path);
+		return (NULL);
+	}
+	start_copy->x = start->x, start_copy->y = start->y;
+	node = queue_push_front(already_seen, start_copy);
 	if (!node)
 	{
 		queue_delete(path), queue_delete(already_seen);
 		return (NULL);
 	}
-
 	recursion_success = recursive_call(map, rows, cols, already_seen, path,
 					   (point_t *)start, (point_t *)target);
-	queue_delete(already_seen);
 	if (!recursion_success)
-		free_path(path), path = NULL;
+		free_path(path, NULL), path = NULL;
 	else
-	{
-		start_copy = malloc(sizeof(point_t));
-		if (!start_copy)
-			free_path(path), path = NULL;
-		start_copy->x = start->x, start_copy->y = start->y;
 		queue_push_front(path, start_copy);
-	}
+	free_path(already_seen, path);
 	return (path);
 }
