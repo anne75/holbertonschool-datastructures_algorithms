@@ -5,6 +5,7 @@
  * @map: grid on which the maze is.
  * @rows: number of rows in the maze.
  * @cols: number of columns in the maze.
+ * @path: queue of elements already seen to not go back.
  * @to_check: the point we want to check
  * It is assumed the map is a valid argument.
  * Return: 1 if the move is valid, 0 otherwise.
