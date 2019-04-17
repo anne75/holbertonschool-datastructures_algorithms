@@ -19,7 +19,13 @@ typedef struct point_s
 	int y;
 } point_t;
 
-
+/**
+ * enum direction_e - Directions allowed in the grid.
+ * @RIGHT: move right.
+ * @BOTTOM: move down.
+ * @LEFT: move left.
+ * @TOP: move up.
+ */
 enum direction_e
 {
 	RIGHT = 0,

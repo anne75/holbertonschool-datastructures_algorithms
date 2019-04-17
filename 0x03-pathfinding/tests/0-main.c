@@ -67,8 +67,8 @@ int main(void)
 	point_t target2 = { 1, 3 };
 	queue_t *path;
 
+	printf("TEST 1\n");
 	path = backtracking_array((char **)map, 21, 21, &start, &target);
-	/*path = backtracking_array((char **)map2, 4, 3, &start2, &target2);*/
 	if (!path)
 	{
 		fprintf(stderr, "Failed to retrieve path\n");
@@ -76,6 +76,49 @@ int main(void)
 	}
 
 	print_free_path(path);
+
+	printf("TEST 2\n");
+	path = backtracking_array((char **)map2, 4, 3, &start2, &target2);
+	if (!path)
+		fprintf(stderr, "Failed to retrieve path\n");
+	print_free_path(path);
+
+	printf("TEST 3\n");
+	path = backtracking_array(NULL, 4, 3, &start2, &target2);
+	if (!path)
+		fprintf(stderr, "Failed to retrieve path\n");
+	else
+		print_free_path(path);
+
+	printf("TEST 4\n");
+	path = backtracking_array((char **)map2, -1, 3, &start2, &target2);
+	if (!path)
+		fprintf(stderr, "Failed to retrieve path\n");
+	else
+		print_free_path(path);
+
+	printf("TEST 5\n");
+	path = backtracking_array((char **)map2, 4, 0, &start2, &target2);
+	if (!path)
+		fprintf(stderr, "Failed to retrieve path\n");
+	else
+		print_free_path(path);
+
+	printf("TEST 6\n");
+	path = backtracking_array((char **)map2, 4, 3, NULL, &target2);
+	if (!path)
+		fprintf(stderr, "Failed to retrieve path\n");
+	else
+		print_free_path(path);
+
+	printf("TEST 6\n");
+	path = backtracking_array((char **)map2, 4, 3, &target2, &target2);
+	if (!path)
+		fprintf(stderr, "Failed to retrieve path\n");
+	else
+		print_free_path(path);
+
+
 
 	return (EXIT_SUCCESS);
 }
