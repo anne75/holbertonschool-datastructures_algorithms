@@ -97,12 +97,17 @@ int recursive_call(char **map, int rows, int cols, queue_t *already_seen,
 	if (start->x == target->x && start->y == target->y)
 		return (1);
 
+	recursion_success = 0;
 	for (direction = 0; direction < 4; ++direction)
 	{
 		next = next_point(start, direction);
-		if (!next ||
-		    !point_is_valid(map, rows, cols, already_seen, next))
+		if (!next)
 			continue;
+		if (!point_is_valid(map, rows, cols, already_seen, next))
+		{
+			free(next);
+			continue;
+		}
 		queue_push_front(already_seen, (void *)next);
 		recursion_success = recursive_call(map, rows, cols,
 						   already_seen, path,
